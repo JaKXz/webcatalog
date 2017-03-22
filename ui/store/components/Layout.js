@@ -1,7 +1,7 @@
 /* global os */
 import React from 'react';
 import { connect } from 'react-redux';
-import { fullWhite, blue500, blue700, green700 } from 'material-ui/styles/colors';
+import { fullWhite, blue500, blue700, red500 } from 'material-ui/styles/colors';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -16,7 +16,7 @@ class Layout extends React.Component {
 
     pTheme.palette.primary1Color = blue500;
     pTheme.palette.primary2Color = blue700;
-    pTheme.palette.accent1Color = green700;
+    pTheme.palette.accent1Color = red500;
 
     const muiTheme = getMuiTheme(pTheme);
 
