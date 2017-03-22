@@ -1,5 +1,9 @@
+/* global os */
 import React from 'react';
 import { connect } from 'react-redux';
+import { fullWhite, blue500, blue700, green700 } from 'material-ui/styles/colors';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import Nav from './Nav';
 
@@ -7,6 +11,20 @@ import { fetchApps } from '../actions/app';
 
 
 class Layout extends React.Component {
+  getChildContext() {
+    const pTheme = lightBaseTheme;
+
+    pTheme.palette.primary1Color = blue500;
+    pTheme.palette.primary2Color = blue700;
+    pTheme.palette.accent1Color = green700;
+
+    const muiTheme = getMuiTheme(pTheme);
+
+    return {
+      muiTheme,
+    };
+  }
+
   componentDidMount() {
     const { pathname, requestFetchApps } = this.props;
     const el = this.scrollContainer;
@@ -23,7 +41,24 @@ class Layout extends React.Component {
     this.scrollContainer.onscroll = null;
   }
 
+  getStyles() {
+    return {
+      fakeTitleBar: {
+        flexBasis: 22,
+        height: 22,
+        lineHeight: '22px',
+        color: fullWhite,
+        backgroundColor: blue700,
+        textAlign: 'center',
+        fontSize: 13,
+        WebkitUserSelect: 'none',
+        WebkitAppRegion: 'drag',
+      },
+    };
+  }
+
   render() {
+    const styles = this.getStyles();
     const { children, pathname } = this.props;
 
     return (
@@ -34,6 +69,11 @@ class Layout extends React.Component {
           flexDirection: 'column',
         }}
       >
+        {os.platform() === 'darwin' ? (
+          <div style={styles.fakeTitleBar}>
+            WebCatalog
+          </div>
+        ) : null}
         <Nav pathname={pathname} />
         <div
           style={{ flex: 1, overflow: 'auto', paddingTop: 12, paddingBottom: 12 }}
@@ -50,6 +90,10 @@ Layout.propTypes = {
   children: React.PropTypes.element, // matched child route component
   pathname: React.PropTypes.string,
   requestFetchApps: React.PropTypes.func,
+};
+
+Layout.childContextTypes = {
+  muiTheme: React.PropTypes.object,
 };
 
 const mapStateToProps = (state, ownProps) => ({

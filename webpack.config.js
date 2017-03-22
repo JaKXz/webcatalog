@@ -42,6 +42,7 @@ const config = (() => {
     { from: `${SOURCE_DIR}/store/store.html` },
     { from: `${SOURCE_DIR}/app/app.html` },
     { from: `${SOURCE_DIR}/images`, to: `${OUTPUT_DIR}/images` },
+    { from: `${SOURCE_DIR}/roboto-v15`, to: `${OUTPUT_DIR}/roboto-v15` },
     { from: 'node_modules/@blueprintjs/core/dist/blueprint.css', to: `${OUTPUT_DIR}/dist` },
     { from: 'node_modules/@blueprintjs/core/resources', to: `${OUTPUT_DIR}/resources` },
   ];
